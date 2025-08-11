@@ -3,18 +3,25 @@ import styled from "styled-components";
 import { getCabins } from "../../services/apiCabins";
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
+import { useIsMobile } from "../../hooks/useIsMobile";
+import { device } from "../../styles/breakpoints";
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
-
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
   border-radius: 7px;
   overflow: hidden;
+  @media${device.mobile} {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    border: none;
+  }
 `;
 
 const TableHeader = styled.header`
   display: grid;
-  grid-template-columns: 6.4rem 1.8fr 2.2fr 1fr 1fr 1fr;
+  grid-template-columns: 10rem 1.8fr 2.2fr 1fr 1fr 1fr;
   column-gap: 2.4rem;
   align-items: center;
 
@@ -35,19 +42,23 @@ function CabinTable() {
     queryKey: ["cabins"],
     queryFn: getCabins,
   });
+  const isMobile = useIsMobile();
+
   if (isPending) return <Spinner />;
   return (
     <Table role="table">
-      <TableHeader role="row">
-        <div></div>
-        <div>Cabin</div>
-        <div>Capacity</div>
-        <div>Price</div>
-        <div>Discount</div>
-        <div></div>
-      </TableHeader>
+      {!isMobile && (
+        <TableHeader role="row">
+          <div></div>
+          <div>Cabin</div>
+          <div>Capacity</div>
+          <div>Price</div>
+          <div>Discount</div>
+          <div></div>
+        </TableHeader>
+      )}
       {cabins.map((cabin) => (
-        <CabinRow cabin={cabin} key={cabin.id} />
+        <CabinRow cabin={cabin} key={cabin.id} isMobile={isMobile} />
       ))}
     </Table>
   );

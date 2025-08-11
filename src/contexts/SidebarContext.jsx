@@ -1,13 +1,13 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { useIsMobile } from "../hooks/useIsMobile";
+import { useIsTablet } from "../hooks/useIsTablet";
 const SidebarContext = createContext();
 function SidebarProvider({ children }) {
-  const isMobile = useIsMobile();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(!isMobile);
+  const isTablet = useIsTablet();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(!isTablet);
 
   useEffect(() => {
-    setIsSidebarOpen(!isMobile);
-  }, [isMobile]);
+    setIsSidebarOpen(!isTablet);
+  }, [isTablet]);
 
   function toggleSidebar() {
     setIsSidebarOpen((open) => !open);

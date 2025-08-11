@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { TfiMenu } from "react-icons/tfi";
-import { useIsMobile } from "../hooks/useIsMobile";
+import { useIsTablet } from "../hooks/useIsTablet";
 import { useSidebar, SidebarProvider } from "../contexts/SidebarContext";
 
 const StyledHeader = styled.header`
@@ -9,12 +9,12 @@ const StyledHeader = styled.header`
   border-bottom: 1px solid var(--color-grey-100);
 `;
 function Header() {
-  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
   const { toggleSidebar } = useSidebar();
 
   return (
     <StyledHeader>
-      {isMobile && (
+      {isTablet && (
         <span>
           <TfiMenu onClick={toggleSidebar} />
         </span>
