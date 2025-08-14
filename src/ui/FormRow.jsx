@@ -27,6 +27,7 @@ const StyledFormRow = styled.div`
   }
   @media${device.tablet} {
     grid-template-columns: 1fr;
+    gap: 1.2rem;
   }
 `;
 

@@ -4,6 +4,7 @@ import MainNav from "./MainNav";
 import { device } from "../styles/breakpoints";
 import { IoClose } from "react-icons/io5";
 import { useSidebar } from "../contexts/SidebarContext";
+import { HiXMark } from "react-icons/hi2";
 
 const StyledSidebar = styled.aside`
   background-color: var(--color-grey-0);
@@ -28,7 +29,7 @@ const StyledSidebar = styled.aside`
   }
 `;
 
-const CloseIcon = styled(IoClose)`
+const CloseIcon = styled(HiXMark)`
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
