@@ -4,6 +4,8 @@ import { device } from "../../styles/breakpoints";
 import { useState } from "react";
 import CreateCabinForm from "./CreateCabinForm";
 import { useDeleteCabin } from "./useDeleteCabin";
+import { useCreateCabin } from "./useCreateCabin";
+import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 const CabinCard = styled.div`
   display: flex;
   flex-direction: column;
@@ -72,7 +74,20 @@ const Discount = styled.div`
 `;
 function CabinRow({ cabin, isMobile }) {
   const { isDeleting, deleteCabin } = useDeleteCabin();
+  const { isCreating, createCabin } = useCreateCabin();
   const [showForm, setShowForm] = useState(false);
+
+  function handleDuplicate() {
+    createCabin({
+      name: `Copy of ${name}`,
+      maxCapacity,
+      regularPrice,
+      discount,
+      image,
+      description,
+    });
+  }
+
   const {
     id: cabinId,
     name,
@@ -80,6 +95,7 @@ function CabinRow({ cabin, isMobile }) {
     regularPrice,
     discount,
     image,
+    description,
   } = cabin;
 
   if (isMobile)
@@ -117,9 +133,14 @@ function CabinRow({ cabin, isMobile }) {
           <span>&mdash;</span>
         )}
         <div>
-          <button onClick={() => setShowForm((show) => !show)}>Edit</button>
+          <button onClick={handleDuplicate} disabled={isCreating}>
+            <HiSquare2Stack />
+          </button>
+          <button onClick={() => setShowForm((show) => !show)}>
+            <HiPencil />
+          </button>
           <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
-            Delete
+            <HiTrash />
           </button>
         </div>
       </TableRow>
