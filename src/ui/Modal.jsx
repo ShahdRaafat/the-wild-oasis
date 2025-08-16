@@ -16,7 +16,7 @@ const StyledModal = styled.div`
   padding: 3.2rem 4rem;
   transition: all 0.5s;
   @media${device.tablet} {
-    height: 97%;
+    height: fit-content;
     padding: 2.4rem 3.2rem;
   }
 `;
@@ -95,7 +95,7 @@ function Window({ children, name }) {
   );
 }
 
-Modal.open = Open;
-Modal.window = Window;
+Modal.Open = Open;
+Modal.Window = Window;
 
 export default Modal;

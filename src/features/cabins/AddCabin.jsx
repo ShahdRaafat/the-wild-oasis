@@ -7,12 +7,12 @@ import CabinTable from "./CabinTable";
 function AddCabin() {
   return (
     <Modal>
-      <Modal.open opens="cabin-form">
+      <Modal.Open opens="cabin-form">
         <Button>Add New Cabin</Button>
-      </Modal.open>
-      <Modal.window name="cabin-form">
+      </Modal.Open>
+      <Modal.Window name="cabin-form">
         <CreateCabinForm />
-      </Modal.window>
+      </Modal.Window>
     </Modal>
   );
 }

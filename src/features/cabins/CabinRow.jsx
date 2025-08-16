@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import { formatCurrency } from "../../utils/helpers";
 import { device } from "../../styles/breakpoints";
-import { useState } from "react";
-import CreateCabinForm from "./CreateCabinForm";
-import { useDeleteCabin } from "./useDeleteCabin";
-import { useCreateCabin } from "./useCreateCabin";
-import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
+import CabinInfo from "./CabinInfo";
+import { useIsMobile } from "../../hooks/useIsMobile";
+import CabinActions from "./CabinActions";
+
+//Mobile and tablet view
 const CabinCard = styled.div`
   display: flex;
   flex-direction: column;
@@ -21,7 +20,7 @@ const CabinCard = styled.div`
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   }
 `;
-
+//Desktop View
 const TableRow = styled.div`
   display: grid;
   grid-template-columns: 6.4rem 1.8fr 2.2fr 1fr 1fr 1fr;
@@ -49,54 +48,21 @@ const Img = styled.img`
     border-radius: 4px;
     flex-shrink: 0;
     transform: scale(1) translateX(0px);
-    ${CabinCard}:hover & {
+    hover & {
       transform: scale(1.03);
     }
   }
 `;
 
-const Cabin = styled.div`
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: var(--color-grey-600);
-  font-family: "Sono";
+const MobileActions = styled.div`
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1rem;
 `;
 
-const Price = styled.div`
-  font-family: "Sono";
-  font-weight: 600;
-`;
-
-const Discount = styled.div`
-  font-family: "Sono";
-  font-weight: 500;
-  color: var(--color-green-700);
-`;
-function CabinRow({ cabin, isMobile }) {
-  const { isDeleting, deleteCabin } = useDeleteCabin();
-  const { isCreating, createCabin } = useCreateCabin();
-  const [showForm, setShowForm] = useState(false);
-
-  function handleDuplicate() {
-    createCabin({
-      name: `Copy of ${name}`,
-      maxCapacity,
-      regularPrice,
-      discount,
-      image,
-      description,
-    });
-  }
-
-  const {
-    id: cabinId,
-    name,
-    maxCapacity,
-    regularPrice,
-    discount,
-    image,
-    description,
-  } = cabin;
+function CabinRow({ cabin }) {
+  const isMobile = useIsMobile();
+  const { image } = cabin;
 
   if (isMobile)
     return (
@@ -105,17 +71,10 @@ function CabinRow({ cabin, isMobile }) {
           <Img src={image} />
         </div>
         <div>
-          <Cabin>{cabin.name}</Cabin>
-          <p>Fits up to {cabin.maxCapacity} guests</p>
-          <Price>Price: {formatCurrency(cabin.regularPrice)}</Price>
-          {discount ? (
-            <Discount>Discount: {formatCurrency(cabin.discount)}</Discount>
-          ) : (
-            <span>&mdash;</span>
-          )}
-
-          <div></div>
-          <button>Delete</button>
+          <CabinInfo cabin={cabin} isMobile={isMobile} />
+          <MobileActions>
+            <CabinActions cabin={cabin} />
+          </MobileActions>
         </div>
       </CabinCard>
     );
@@ -124,27 +83,11 @@ function CabinRow({ cabin, isMobile }) {
     <>
       <TableRow role="row">
         <Img src={image} />
-        <Cabin>{name}</Cabin>
-        <div>Fits up to {maxCapacity} guests</div>
-        <Price>{formatCurrency(regularPrice)}</Price>
-        {discount ? (
-          <Discount>{formatCurrency(cabin.discount)}</Discount>
-        ) : (
-          <span>&mdash;</span>
-        )}
+        <CabinInfo cabin={cabin} />
         <div>
-          <button onClick={handleDuplicate} disabled={isCreating}>
-            <HiSquare2Stack />
-          </button>
-          <button onClick={() => setShowForm((show) => !show)}>
-            <HiPencil />
-          </button>
-          <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
-            <HiTrash />
-          </button>
+          <CabinActions cabin={cabin} />
         </div>
       </TableRow>
-      {showForm && <CreateCabinForm cabinToEdit={cabin} />}
     </>
   );
 }
