@@ -7,9 +7,10 @@ import Table from "../../ui/Table";
 
 //Mobile and tablet view
 const CabinCard = styled.div`
+  margin: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 2rem;
   background-color: var(--color-grey-0);
   border: 1px solid var(--color-grey-200);
   border-radius: 12px;
@@ -56,9 +57,7 @@ const Img = styled.img`
 `;
 
 const MobileActions = styled.div`
-  display: flex;
-  gap: 0.8rem;
-  margin-top: 1rem;
+  align-self: flex-end;
 `;
 
 function CabinRow({ cabin }) {

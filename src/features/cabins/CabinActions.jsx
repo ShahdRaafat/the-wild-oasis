@@ -8,7 +8,7 @@ import Menus from "../../ui/Menus";
 
 function CabinActions({ cabin }) {
   const { isDeleting, deleteCabin } = useDeleteCabin();
-  const { isCreating, createCabin } = useCreateCabin();
+  const { createCabin } = useCreateCabin();
 
   const {
     id: cabinId,
