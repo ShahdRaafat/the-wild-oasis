@@ -3,6 +3,7 @@ import { device } from "../../styles/breakpoints";
 import CabinInfo from "./CabinInfo";
 import { useIsMobile } from "../../hooks/useIsMobile";
 import CabinActions from "./CabinActions";
+import Table from "../../ui/Table";
 
 //Mobile and tablet view
 const CabinCard = styled.div`
@@ -81,13 +82,13 @@ function CabinRow({ cabin }) {
 
   return (
     <>
-      <TableRow role="row">
+      <Table.Row>
         <Img src={image} />
         <CabinInfo cabin={cabin} />
         <div>
           <CabinActions cabin={cabin} />
         </div>
-      </TableRow>
+      </Table.Row>
     </>
   );
 }
