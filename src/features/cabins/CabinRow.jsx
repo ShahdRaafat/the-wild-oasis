@@ -22,18 +22,6 @@ const CabinCard = styled.div`
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   }
 `;
-//Desktop View
-const TableRow = styled.div`
-  display: grid;
-  grid-template-columns: 6.4rem 1.8fr 2.2fr 1fr 1fr 1fr;
-  column-gap: 2.4rem;
-  align-items: center;
-  padding: 1.4rem 2.4rem;
-
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-100);
-  }
-`;
 
 const Img = styled.img`
   display: block;
