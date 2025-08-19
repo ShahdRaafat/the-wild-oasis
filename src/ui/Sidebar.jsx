@@ -5,6 +5,7 @@ import { device } from "../styles/breakpoints";
 import { IoClose } from "react-icons/io5";
 import { useSidebar } from "../contexts/SidebarContext";
 import { HiXMark } from "react-icons/hi2";
+import Uploader from "../data/uploader";
 
 const StyledSidebar = styled.aside`
   background-color: var(--color-grey-0);
@@ -48,6 +49,7 @@ function Sidebar() {
     <StyledSidebar open={isSidebarOpen}>
       <Logo />
       <MainNav />
+      <Uploader />
       <CloseIcon onClick={toggleSidebar} />
     </StyledSidebar>
   );
