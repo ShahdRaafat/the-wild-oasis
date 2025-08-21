@@ -8,8 +8,7 @@ import Menus from "../../ui/Menus";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
-import { device } from "../../styles/breakpoints";
-
+import { useNavigate } from "react-router-dom";
 const Cabin = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
@@ -128,7 +127,7 @@ function BookingRow({
     "checked-in": "green",
     "checked-out": "silver",
   };
-
+  const navigate = useNavigate();
   if (isCard) {
     return (
       <BookingCard>
@@ -197,7 +196,6 @@ function BookingRow({
     );
   }
 
-  // Desktop table row (existing code)
   return (
     <Table.Row>
       <Cabin>{cabinName}</Cabin>
@@ -224,18 +222,28 @@ function BookingRow({
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
 
-      {/* <Menus.Menu>
+      <Menus.Menu>
         <Menus.Toggle id={bookingId} />
         <Menus.List id={bookingId}>
-          <Menus.Button icon={<HiEye />}>See details</Menus.Button>
+          <Menus.Button
+            icon={<HiEye />}
+            onClick={() => navigate(`/bookings/${bookingId}`)}
+          >
+            See details
+          </Menus.Button>
           {status === "unconfirmed" && (
-            <Menus.Button icon={<HiArrowDownOnSquare />}>Check in</Menus.Button>
+            <Menus.Button
+              icon={<HiArrowDownOnSquare />}
+              onClick={() => navigate(`/checkin/${bookingId}`)}
+            >
+              Check in
+            </Menus.Button>
           )}
           {status === "checked-in" && (
             <Menus.Button icon={<HiArrowUpOnSquare />}>Check out</Menus.Button>
           )}
         </Menus.List>
-      </Menus.Menu> */}
+      </Menus.Menu>
     </Table.Row>
   );
 }

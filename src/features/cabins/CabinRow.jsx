@@ -46,6 +46,20 @@ const Img = styled.img`
 
 const MobileActions = styled.div`
   align-self: flex-end;
+  button {
+    padding: 0.6rem;
+    border: 1px solid var(--color-grey-300);
+    background-color: var(--color-grey-50);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: var(--color-grey-100);
+    }
+  }
 `;
 
 function CabinRow({ cabin }) {
