@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-// import { useSidebar } from "../contexts/SidebarContext";
 import { device } from "../styles/breakpoints";
 const StyledAppLayout = styled.div`
   display: grid;
