@@ -1,14 +1,10 @@
 import styled from "styled-components";
 import { format, isToday } from "date-fns";
-import { HiEye, HiArrowUpOnSquare, HiArrowDownOnSquare } from "react-icons/hi2";
-
 import Tag from "../../ui/Tag";
 import Table from "../../ui/Table";
-import Menus from "../../ui/Menus";
-
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
-import { useNavigate } from "react-router-dom";
+import BookingActions from "./BookingActions";
 const Cabin = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
@@ -127,7 +123,6 @@ function BookingRow({
     "checked-in": "green",
     "checked-out": "silver",
   };
-  const navigate = useNavigate();
   if (isCard) {
     return (
       <BookingCard>
@@ -175,22 +170,7 @@ function BookingRow({
         </CardContent>
 
         <CardActions>
-          <Menus.Menu>
-            <Menus.Toggle id={bookingId} />
-            <Menus.List id={bookingId}>
-              <Menus.Button icon={<HiEye />}>See details</Menus.Button>
-              {status === "unconfirmed" && (
-                <Menus.Button icon={<HiArrowDownOnSquare />}>
-                  Check in
-                </Menus.Button>
-              )}
-              {status === "checked-in" && (
-                <Menus.Button icon={<HiArrowUpOnSquare />}>
-                  Check out
-                </Menus.Button>
-              )}
-            </Menus.List>
-          </Menus.Menu>
+          <BookingActions bookingId={bookingId} status={status} />
         </CardActions>
       </BookingCard>
     );
@@ -221,29 +201,7 @@ function BookingRow({
       <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
-
-      <Menus.Menu>
-        <Menus.Toggle id={bookingId} />
-        <Menus.List id={bookingId}>
-          <Menus.Button
-            icon={<HiEye />}
-            onClick={() => navigate(`/bookings/${bookingId}`)}
-          >
-            See details
-          </Menus.Button>
-          {status === "unconfirmed" && (
-            <Menus.Button
-              icon={<HiArrowDownOnSquare />}
-              onClick={() => navigate(`/checkin/${bookingId}`)}
-            >
-              Check in
-            </Menus.Button>
-          )}
-          {status === "checked-in" && (
-            <Menus.Button icon={<HiArrowUpOnSquare />}>Check out</Menus.Button>
-          )}
-        </Menus.List>
-      </Menus.Menu>
+      <BookingActions bookingId={bookingId} status={status} />
     </Table.Row>
   );
 }
