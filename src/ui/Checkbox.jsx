@@ -1,8 +1,11 @@
 import styled from "styled-components";
+import { device } from "../styles/breakpoints";
 
 const StyledCheckbox = styled.div`
   display: flex;
   gap: 1.6rem;
+  justify-content: center;
+  align-items: center;
 
   & input[type="checkbox"] {
     height: 2.4rem;
@@ -22,6 +25,29 @@ const StyledCheckbox = styled.div`
     display: flex;
     align-items: center;
     gap: 0.8rem;
+  }
+
+  @media ${device.tablet} {
+    gap: 1.4rem;
+    & input[type="checkbox"] {
+      height: 2rem;
+      width: 2rem;
+    }
+    & label {
+      font-size: 1.4rem;
+      gap: 0.8rem;
+    }
+  }
+  @media ${device.mobile} {
+    gap: 1.3rem;
+    & input[type="checkbox"] {
+      height: 1.8rem;
+      width: 1.8rem;
+    }
+    & label {
+      font-size: 1.3rem;
+      gap: 0.7rem;
+    }
   }
 `;
 

@@ -11,6 +11,7 @@ import DataItem from "../../ui/DataItem";
 import { Flag } from "../../ui/Flag";
 
 import { formatDistanceFromNow, formatCurrency } from "../../utils/helpers";
+import { device } from "../../styles/breakpoints";
 
 const StyledBookingDataBox = styled.section`
   /* Box */
@@ -49,10 +50,60 @@ const Header = styled.header`
     font-size: 2rem;
     margin-left: 4px;
   }
+  @media (max-width: 950px) {
+    padding: 1.6rem 2.4rem;
+    font-size: 1.6rem;
+    flex-direction: column;
+    gap: 1.2rem;
+    text-align: center;
+
+    & div:first-child {
+      font-size: 1.6rem;
+      gap: 1.2rem;
+    }
+
+    & span {
+      font-size: 1.8rem;
+    }
+
+    svg {
+      height: 2.8rem;
+      width: 2.8rem;
+    }
+  }
+  @media ${device.mobile} {
+    padding: 1.2rem 1.6rem;
+    font-size: 1.4rem;
+    gap: 1rem;
+
+    & div:first-child {
+      font-size: 1.4rem;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    & span {
+      font-size: 1.6rem;
+    }
+
+    svg {
+      height: 2.4rem;
+      width: 2.4rem;
+    }
+  }
 `;
 
 const Section = styled.section`
   padding: 3.2rem 4rem 1.2rem;
+  @media ${device.tablet} {
+    padding: 2.4rem 2.4rem 1.2rem;
+  }
+
+  /* Mobile */
+  @media ${device.mobile} {
+    padding: 1.6rem 1.6rem 1.2rem;
+  }
 `;
 
 const Guest = styled.div`
@@ -61,13 +112,41 @@ const Guest = styled.div`
   gap: 1.2rem;
   margin-bottom: 1.6rem;
   color: var(--color-grey-500);
-
+  flex-wrap: wrap;
   & p:first-of-type {
     font-weight: 500;
     color: var(--color-grey-700);
   }
-`;
 
+  @media (max-width: 950px) {
+    gap: 1rem;
+    font-size: 1.4rem;
+  }
+
+  @media ${device.mobile} {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+    font-size: 1.3rem;
+    & span {
+      display: none;
+    }
+    & p {
+      margin: 0;
+    }
+  }
+`;
+const GuestRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+
+  @media ${device.mobile} {
+    width: 100%;
+    justify-content: flex-start;
+  }
+`;
 const Price = styled.div`
   display: flex;
   align-items: center;
@@ -92,6 +171,34 @@ const Price = styled.div`
     width: 2.4rem;
     color: currentColor !important;
   }
+
+  @media (max-width: 950px) {
+    padding: 1.4rem 2.4rem;
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: stretch;
+    font-size: 1.4rem;
+
+    & p:last-child {
+      text-align: center;
+      font-size: 1.4rem;
+    }
+  }
+
+  @media ${device.mobile} {
+    padding: 1.2rem 1.6rem;
+    gap: 1rem;
+    font-size: 1.3rem;
+
+    & p:last-child {
+      font-size: 1.2rem;
+    }
+
+    svg {
+      height: 2rem;
+      width: 2rem;
+    }
+  }
 `;
 
 const Footer = styled.footer`
@@ -99,6 +206,18 @@ const Footer = styled.footer`
   font-size: 1.2rem;
   color: var(--color-grey-500);
   text-align: right;
+
+  @media ${device.tablet} {
+    padding: 1.6rem 2.4rem;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+
+  /* Mobile */
+  @media ${device.mobile} {
+    padding: 1.2rem 1.6rem;
+    font-size: 1rem;
+  }
 `;
 
 // A purely presentational component
@@ -140,14 +259,23 @@ function BookingDataBox({ booking }) {
 
       <Section>
         <Guest>
-          {countryFlag && <Flag src={countryFlag} alt={`Flag of ${country}`} />}
-          <p>
-            {guestName} {numGuests > 1 ? `+ ${numGuests - 1} guests` : ""}
-          </p>
-          <span>&bull;</span>
-          <p>{email}</p>
-          <span>&bull;</span>
-          <p>National ID {nationalID}</p>
+          <GuestRow>
+            {countryFlag && (
+              <Flag src={countryFlag} alt={`Flag of ${country}`} />
+            )}
+            <p>
+              {guestName} {numGuests > 1 ? `+ ${numGuests - 1} guests` : ""}
+            </p>
+          </GuestRow>
+          <GuestRow>
+            <span>&bull;</span>
+            <p>{email}</p>
+          </GuestRow>
+
+          <GuestRow>
+            <span>&bull;</span>
+            <p>National ID {nationalID}</p>
+          </GuestRow>
         </Guest>
 
         {observations && (

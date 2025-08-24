@@ -7,7 +7,7 @@ const Heading = styled.h1`
     css`
       font-size: 3rem;
       font-weight: 600;
-      @media${device.mobile} {
+      @media${device.tablet} {
         font-size: 2rem;
       }
     `}
@@ -17,7 +17,7 @@ const Heading = styled.h1`
     css`
       font-size: 2rem;
       font-weight: 600;
-      @media${device.mobile} {
+      @media${device.tablet} {
         font-size: 1.5rem;
       }
     `}
@@ -27,7 +27,7 @@ const Heading = styled.h1`
     css`
       font-size: 2rem;
       font-weight: 500;
-      @media${device.mobile} {
+      @media${device.tablet} {
         font-size: 1.5rem;
       }
     `}
