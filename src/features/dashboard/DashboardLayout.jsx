@@ -4,6 +4,7 @@ import { useRecentStays } from "./useRecentStays";
 import { useCabins } from "../cabins/useCabins";
 import Spinner from "../../ui/Spinner";
 import Stats from "./Stats";
+import SalesChart from "./SalesChart";
 const StyledDashboardLayout = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -13,7 +14,6 @@ const StyledDashboardLayout = styled.div`
 function DashboardLayout() {
   const { bookings, isPending: isPendingBookings } = useRecentBookings();
   const {
-    stays,
     isPending: isPendingStays,
     confirmedStays,
     numDays,
@@ -32,7 +32,7 @@ function DashboardLayout() {
       />
       <div>Today</div>
       <div>Chart stay</div>
-      <div>chart sales</div>
+      <SalesChart bookings={bookings} numDays={numDays} />
     </StyledDashboardLayout>
   );
 }
