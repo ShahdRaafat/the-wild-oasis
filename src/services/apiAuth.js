@@ -1,6 +1,9 @@
 import supabase, { supabaseUrl } from "./supabase";
 
 export async function signup({ fullName, email, password }) {
+  // Store the current session before creating new user
+  const { data: currentSession } = await supabase.auth.getSession();
+
   let { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -11,7 +14,21 @@ export async function signup({ fullName, email, password }) {
       },
     },
   });
+
   if (error) throw new Error(error.message);
+
+  // If there was a previous session, restore it
+  if (currentSession.session) {
+    const { error: restoreError } = await supabase.auth.setSession({
+      access_token: currentSession.session.access_token,
+      refresh_token: currentSession.session.refresh_token,
+    });
+
+    if (restoreError) {
+      console.error("Failed to restore original session:", restoreError);
+    }
+  }
+
   return data;
 }
 
