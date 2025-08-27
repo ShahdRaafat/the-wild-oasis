@@ -7,6 +7,7 @@ import {
   HiOutlineHomeModern,
   HiOutlineUsers,
 } from "react-icons/hi2";
+import { useSidebar } from "../contexts/SidebarContext";
 
 const NavList = styled.ul`
   display: flex;
@@ -54,9 +55,10 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 function MainNav() {
+  const { toggleSidebar } = useSidebar();
   return (
     <nav>
-      <NavList>
+      <NavList onClick={toggleSidebar}>
         <li>
           <StyledNavLink to="/dashboard">
             <HiOutlineHome />

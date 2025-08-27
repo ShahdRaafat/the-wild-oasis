@@ -27,7 +27,7 @@ function Header() {
     <StyledHeader>
       {isTablet && (
         <span>
-          <TfiMenu onClick={toggleSidebar} />
+          <TfiMenu onClick={toggleSidebar} style={{ cursor: "pointer" }} />
         </span>
       )}
       <RightContainer>

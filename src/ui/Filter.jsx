@@ -1,5 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { device } from "../styles/breakpoints";
 
 const StyledFilter = styled.div`
   border: 1px solid var(--color-grey-100);
@@ -8,8 +9,15 @@ const StyledFilter = styled.div`
   border-radius: var(--border-radius-sm);
   padding: 0.4rem;
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   gap: 0.4rem;
+  @media ${device.tablet} {
+    padding: 0.3rem;
+    gap: 0.3rem;
+  }
+  @media${device.mobile} {
+    align-items: stretch;
+  }
 `;
 
 const FilterButton = styled.button`

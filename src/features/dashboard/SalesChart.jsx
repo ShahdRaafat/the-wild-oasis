@@ -12,13 +12,35 @@ import {
 import Heading from "../../ui/Heading";
 import { useDarkMode } from "../../contexts/DarkModeContext";
 import { eachDayOfInterval, format, isSameDay, subDays } from "date-fns";
+import { device } from "../../styles/breakpoints";
+
 const StyledSalesChart = styled(DashboardBox)`
   grid-column: 1 / -1;
-
+  min-height: 40rem;
   /* Hack to change grid line colors */
   & .recharts-cartesian-grid-horizontal line,
   & .recharts-cartesian-grid-vertical line {
     stroke: var(--color-grey-300);
+  }
+
+  @media ${device.tablet} {
+    padding: 2.4rem 2rem;
+    gap: 1.8rem;
+  }
+
+  @media ${device.mobile} {
+    padding: 1.6rem 1.2rem;
+    gap: 1.2rem;
+  }
+`;
+
+const ResponsiveSalesContainer = styled(ResponsiveContainer)`
+  @media (max-width: 768px) {
+    height: 250px !important;
+  }
+
+  @media (max-width: 480px) {
+    height: 220px !important;
   }
 `;
 
@@ -61,7 +83,7 @@ function SalesChart({ bookings, numDays }) {
         Sales from {format(allDates.at(0), "MMM dd yyyy")} &mdash;{" "}
         {format(allDates.at(-1), "MMM dd yyyy")}{" "}
       </Heading>
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveSalesContainer width="100%" height={300}>
         <AreaChart data={data}>
           <XAxis
             dataKey="label"
@@ -88,7 +110,7 @@ function SalesChart({ bookings, numDays }) {
             name="Extras sales"
           />
         </AreaChart>
-      </ResponsiveContainer>
+      </ResponsiveSalesContainer>
     </StyledSalesChart>
   );
 }

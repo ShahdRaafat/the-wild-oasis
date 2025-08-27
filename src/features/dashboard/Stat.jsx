@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { device } from "../../styles/breakpoints";
 const StyledStat = styled.div`
   /* Box */
   background-color: var(--color-grey-0);
@@ -12,6 +12,24 @@ const StyledStat = styled.div`
   grid-template-rows: auto auto;
   column-gap: 1.6rem;
   row-gap: 0.4rem;
+  //Ensure stats don't grow too large
+  min-height: 0;
+  height: fit-content;
+  max-height: 150px;
+
+  @media${device.laptop} {
+    padding: 1.4rem;
+    grid-template-columns: 5.6rem 1fr;
+    column-gap: 1.4rem;
+  }
+
+  @media${device.mobile} {
+    padding: 1.2rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    text-align: center;
+    gap: 1rem;
+  }
 `;
 
 const Icon = styled.div`
@@ -30,6 +48,25 @@ const Icon = styled.div`
     height: 3.2rem;
     color: var(--color-${(props) => props.color}-700);
   }
+
+  @media${device.laptop} {
+    & svg {
+      width: 2.8rem;
+      height: 2.8rem;
+    }
+  }
+
+  @media${device.mobile} {
+    grid-row: 1;
+    width: 4.8rem;
+    height: 4.8rem;
+    margin: 0 auto;
+
+    & svg {
+      width: 2.4rem;
+      height: 2.4rem;
+    }
+  }
 `;
 
 const Title = styled.h5`
@@ -39,12 +76,23 @@ const Title = styled.h5`
   letter-spacing: 0.4px;
   font-weight: 600;
   color: var(--color-grey-500);
+  @media ${device.mobile} {
+    align-self: center;
+    font-size: 1.1rem;
+  }
 `;
 
 const Value = styled.p`
   font-size: 2.4rem;
   line-height: 1;
   font-weight: 500;
+  @media ${device.laptop} {
+    font-size: 2.2rem;
+  }
+
+  @media ${device.mobile} {
+    font-size: 2rem;
+  }
 `;
 
 function Stat({ icon, title, value, color }) {

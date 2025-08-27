@@ -49,6 +49,7 @@ function Sidebar() {
     <StyledSidebar open={isSidebarOpen}>
       <Logo />
       <MainNav />
+      <Uploader />
       <CloseIcon onClick={toggleSidebar} />
     </StyledSidebar>
   );

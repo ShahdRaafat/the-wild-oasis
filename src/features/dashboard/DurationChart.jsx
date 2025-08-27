@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
+import { device } from "../../styles/breakpoints";
+
 import {
   Cell,
   Legend,
@@ -26,8 +28,31 @@ const ChartBox = styled.div`
   & .recharts-pie-label-text {
     font-weight: 600;
   }
-`;
 
+  @media${device.laptop} {
+    grid-column: 1 / -1;
+    padding: 2rem 2.4rem;
+  }
+  @media${device.tablet} {
+    padding: 1.6rem 2rem;
+
+    & > *:first-child {
+      margin-bottom: 1.2rem;
+    }
+  }
+  @media${device.mobile} {
+    padding: 1.2rem 1.6rem;
+  }
+`;
+const ResponsiveChartContainer = styled(ResponsiveContainer)`
+  @media${device.tablet} {
+    height: 280px !important;
+  }
+
+  @media ${device.mobile} {
+    height: 250px !important;
+  }
+`;
 const startDataLight = [
   {
     duration: "1 night",
@@ -142,19 +167,63 @@ function DurationChart({ confirmedStays }) {
   const { isDarkMode } = useDarkMode();
   const startData = isDarkMode ? startDataDark : startDataLight;
   const data = prepareData(startData, confirmedStays);
+
+  // Responsive chart settings
+  const getChartSettings = () => {
+    if (window.innerWidth <= 480) {
+      return {
+        innerRadius: 60,
+        outerRadius: 85,
+        cx: "50%",
+        cy: "45%",
+        legendWidth: "100%",
+        legendAlign: "center",
+        legendVerticalAlign: "bottom",
+        legendLayout: "horizontal",
+        iconSize: 12,
+      };
+    } else if (window.innerWidth <= 768) {
+      return {
+        innerRadius: 70,
+        outerRadius: 95,
+        cx: "45%",
+        cy: "50%",
+        legendWidth: "35%",
+        legendAlign: "right",
+        legendVerticalAlign: "middle",
+        legendLayout: "vertical",
+        iconSize: 13,
+      };
+    } else {
+      return {
+        innerRadius: 85,
+        outerRadius: 110,
+        cx: "40%",
+        cy: "50%",
+        legendWidth: "30%",
+        legendAlign: "right",
+        legendVerticalAlign: "middle",
+        legendLayout: "vertical",
+        iconSize: 15,
+      };
+    }
+  };
+
+  const settings = getChartSettings();
+
   return (
     <ChartBox>
       <Heading as="h2">Stay Duration Summary</Heading>
-      <ResponsiveContainer width="100%" height={240}>
+      <ResponsiveChartContainer width="100%" height={240}>
         <PieChart>
           <Pie
             data={data}
             nameKey="duration"
             dataKey="value"
-            innerRadius={85}
-            outerRadius={110}
-            cx="40%"
-            cy="50%"
+            innerRadius={settings.innerRadius}
+            outerRadius={settings.outerRadius}
+            cx={settings.cx}
+            cy={settings.cy}
             paddingAngle={3}
           >
             {startDataDark.map((entry) => (
@@ -167,15 +236,16 @@ function DurationChart({ confirmedStays }) {
           </Pie>
           <Tooltip />
           <Legend
-            verticalAlign="middle"
-            align="right"
-            width="30%"
-            layout="vertical"
-            iconSize={15}
+            verticalAlign={settings.legendVerticalAlign}
+            align={settings.legendAlign}
+            width={settings.legendWidth}
+            layout={settings.legendLayout}
+            iconSize={settings.iconSize}
             iconType="circle"
+            // wrapperStyle={{ bottom: 0 }}
           />
         </PieChart>
-      </ResponsiveContainer>
+      </ResponsiveChartContainer>
     </ChartBox>
   );
 }

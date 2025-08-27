@@ -1,10 +1,10 @@
 import styled from "styled-components";
-
 import Heading from "../../ui/Heading";
 import Row from "../../ui/Row";
 import { useTodayActivity } from "./useTodayActivity";
 import TodayItem from "./TodayItem";
 import Spinner from "../../ui/Spinner";
+import { device } from "../../styles/breakpoints";
 
 const StyledToday = styled.div`
   /* Box */
@@ -18,6 +18,22 @@ const StyledToday = styled.div`
   gap: 2.4rem;
   grid-column: 1 / span 2;
   padding-top: 2.4rem;
+
+  @media${device.laptop} {
+    grid-column: 1 / -1;
+    padding: 2.4rem;
+    gap: 2rem;
+  }
+  @media${device.tablet} {
+    padding: 2rem;
+    gap: 1.6rem;
+    padding-top: 1.8rem;
+  }
+  @media${device.mobile} {
+    padding: 1.6rem;
+    gap: 1.2rem;
+    padding-top: 1.4rem;
+  }
 `;
 
 const TodayList = styled.ul`
