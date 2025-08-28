@@ -13,6 +13,7 @@ const StyledHeader = styled.header`
   align-items: center;
   @media (max-width: 900px) {
     justify-content: space-between;
+    padding: 1.2rem 3.2rem;
   }
 `;
 const RightContainer = styled.div`
@@ -27,7 +28,10 @@ function Header() {
     <StyledHeader>
       {isTablet && (
         <span>
-          <TfiMenu onClick={toggleSidebar} style={{ cursor: "pointer" }} />
+          <TfiMenu
+            onClick={toggleSidebar}
+            style={{ cursor: "pointer", marginRight: "1rem" }}
+          />
         </span>
       )}
       <RightContainer>
